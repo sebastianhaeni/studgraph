@@ -569,14 +569,71 @@ CREATE (d2)-[:child]->(m109)
 CREATE (d2)-[:child]->(m110)
 CREATE (d2)-[:child]->(m111)
 CREATE (d2)-[:child]->(m112)
+
+// dependency relationships
+// dependencies on modules A
+CREATE (m001)-[:precedes {compulsory: true}]->(m015)
+CREATE (m002)-[:precedes {compulsory: true}]->(m005)
+CREATE (m002)-[:precedes {compulsory: true}]->(m007)
+CREATE (m003)-[:precedes {compulsory: true}]->(m004)
+CREATE (m003)-[:precedes {compulsory: true}]->(m007)
+CREATE (m005)-[:precedes {compulsory: true}]->(m008)
+CREATE (m005)-[:precedes {compulsory: true}]->(m009)
+CREATE (m005)-[:precedes {compulsory: true}]->(m052)
+CREATE (m005)-[:precedes {compulsory: true}]->(m055)
+CREATE (m005)-[:precedes {compulsory: true}]->(m058)
+CREATE (m005)-[:precedes {compulsory: true}]->(m061)
+CREATE (m004)-[:precedes {compulsory: true}]->(m006)
+CREATE (m007)-[:precedes {compulsory: false}]->(m012)
+CREATE (m006)-[:precedes {compulsory: false}]->(m014)
+CREATE (m009)-[:precedes {compulsory: true}]->(m013)
+CREATE (m009)-[:precedes {compulsory: true}]->(m048)
+CREATE (m012)-[:precedes {compulsory: false}]->(m017)
+CREATE (m011)-[:precedes {compulsory: false}]->(m016)
+// dependencies on modules B
+CREATE (m032)-[:precedes {compulsory: true}]->(m034)
+CREATE (m033)-[:precedes {compulsory: true}]->(m035)
+CREATE (m034)-[:precedes {compulsory: false}]->(m036)
+CREATE (m035)-[:precedes {compulsory: false}]->(m037)
+CREATE (m024)-[:precedes {compulsory: false}]->(m025)
+CREATE (m026)-[:precedes {compulsory: false}]->(m027)
+CREATE (m028)-[:precedes {compulsory: false}]->(m029)
+CREATE (m030)-[:precedes {compulsory: false}]->(m031)
+CREATE (m019)-[:precedes {compulsory: true}]->(m020)
+CREATE (m021)-[:precedes {compulsory: true}]->(m022)
+
+// dependencies on modules C
+CREATE (m048)-[:precedes {compulsory: true}]->(m051)
+CREATE (m052)-[:precedes {compulsory: true}]->(m053)
+CREATE (m052)-[:precedes {compulsory: true}]->(m049)
+CREATE (m055)-[:precedes {compulsory: true}]->(m056)
+CREATE (m055)-[:precedes {compulsory: true}]->(m049)
+CREATE (m058)-[:precedes {compulsory: true}]->(m059)
+CREATE (m058)-[:precedes {compulsory: true}]->(m049)
+CREATE (m061)-[:precedes {compulsory: true}]->(m062)
+CREATE (m061)-[:precedes {compulsory: true}]->(m049)
+CREATE (m053)-[:precedes {compulsory: true}]->(m054)
+CREATE (m053)-[:precedes {compulsory: true}]->(m051)
+CREATE (m056)-[:precedes {compulsory: true}]->(m057)
+CREATE (m056)-[:precedes {compulsory: true}]->(m051)
+CREATE (m059)-[:precedes {compulsory: true}]->(m060)
+CREATE (m059)-[:precedes {compulsory: true}]->(m051)
+CREATE (m062)-[:precedes {compulsory: true}]->(m063)
+CREATE (m062)-[:precedes {compulsory: true}]->(m051)
+CREATE (m049)-[:precedes {compulsory: true}]->(m051)
+CREATE (m050)-[:precedes {compulsory: true}]->(m051)
+
 ;
 
 
 // TODO:
-// precedes / dependency relationships
 // simultaneous relationships
 // XOR relationships
 
 // return all parent-child relationships
 MATCH (parent)-[:child]->(child)
 RETURN parent, child;
+
+// return all dependency relationships
+MATCH (first)-[:precedes]->(second)
+RETURN first, second;
