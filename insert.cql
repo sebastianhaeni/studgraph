@@ -1,8 +1,13 @@
-// delete graph
+//////////////////////////////////////////////////
+// DELETE WHOLE GRAPH
 MATCH (n) DETACH
 DELETE n;
+//////////////////////////////////////////////////
 
 
+
+//////////////////////////////////////////////////
+// INSERT STATEMENT
 // Modultypen
 CREATE (mt:ModuleType {name_de: "Modultyp", name_fr: "Type de module"})
 CREATE (pm:ModuleType {uid: "PM", name_de: "Pflichtmodul", name_fr: "Module obligatoire"})
@@ -647,16 +652,37 @@ CREATE (m041)-[:xor]->(m043)
 CREATE (m044)-[:xor]->(m045)
 CREATE (m046)-[:xor]->(m047)
 
-;
-
-
-// TODO:
 // simultaneous relationships
+CREATE (m013)-[:simultaneous]->(m048)
+CREATE (m049)-[:simultaneous]->(m050)
+;
+//////////////////////////////////////////////////
 
+
+
+//////////////////////////////////////////////////
+// QUERY STATEMENTS
+// return all type relationships
+MATCH (subject)-[:type]->(type)
+RETURN subject, type;
+//
+// return all assessment relationships
+MATCH (subject)-[:assessment]->(assessment)
+RETURN subject, assessment;
+//
 // return all parent-child relationships
 MATCH (parent)-[:child]->(child)
 RETURN parent, child;
-
+//
 // return all dependency relationships
-MATCH (first)-[:precedes]->(second)
-RETURN first, second;
+MATCH (before)-[:precedes]->(after)
+RETURN before, after;
+//
+// return all XOR relationships
+MATCH (option1)-[:xor]->(option2)
+RETURN option1, option2;
+//
+// return all simultaneous relationships
+MATCH (while)-[:simultaneous]->(do)
+RETURN while, do;
+///////////////////////////////////////////////
