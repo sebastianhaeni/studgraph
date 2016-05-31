@@ -40,10 +40,12 @@ function routeReducer(state = routeInitialState, action) {
 /**
  * Creates the main reducer with the asynchronously loaded ones
  */
+import moduleDetailReducer from 'containers/ModuleDetail/reducer';
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: globalReducer,
+    moduleDetail: moduleDetailReducer,
     ...asyncReducers,
   });
 }

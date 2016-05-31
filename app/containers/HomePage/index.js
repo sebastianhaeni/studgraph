@@ -26,6 +26,7 @@ import { loadRepos } from '../App/actions';
 
 import RepoListItem from 'containers/RepoListItem';
 import Button from 'components/Button';
+import H1 from 'components/H1';
 import H2 from 'components/H2';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
@@ -75,19 +76,18 @@ export class HomePage extends React.Component {
       <article>
         <div>
           <section className={`${styles.textSection} ${styles.centered}`}>
-            <H2>Start your next react project in seconds</H2>
-            <p>A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</p>
+            <H1>StudGraph</H1>
+            <p>A highly scalable, graph-first tool with the best UX and a focus on performance and best practices</p>
           </section>
           <section className={styles.textSection}>
             <H2>Try me!</H2>
             <form className={styles.usernameForm} onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">Show Github repositories by
-                <span className={styles.atPrefix}>@</span>
+              <label htmlFor="username">Search for modules:
                 <input
                   id="username"
                   className={styles.input}
                   type="text"
-                  placeholder="mxstbr"
+                  placeholder="Spieltheorie"
                   value={this.props.username}
                   onChange={this.props.onChangeUsername}
                 />
