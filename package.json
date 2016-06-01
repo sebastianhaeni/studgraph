@@ -1,13 +1,13 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.0.0",
+  "name": "studgraph",
+  "version": "0.0.0",
   "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
   "repository": {
     "type": "git",
     "url": "git://github.com/mxstbr/react-boilerplate.git"
   },
-  "author": "Max Stoiber",
-  "license": "MIT",
+  "author": "Sebastian Häni",
+  "license": "",
   "scripts": {
     "prebuild": "npm run test && npm run build:clean",
     "build:clean": "rimraf ./build/*",
@@ -106,7 +106,8 @@
       "jsx-a11y/mouse-events-have-key-events": 2,
       "jsx-a11y/role-has-required-aria-props": 2,
       "jsx-a11y/role-supports-aria-props": 2,
-      "jsx-a11y/aria-props": 2
+      "jsx-a11y/aria-props": 2,
+      "react/jsx-space-before-closing": 0
     },
     "settings": {
       "import/resolver": {

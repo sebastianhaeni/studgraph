@@ -12,8 +12,8 @@ import styles from './styles.css';
 export class ModuleDetail extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={ styles.moduleDetail }>
-      This is ModuleDetail container !
+      <div className={styles.moduleDetail}>
+        This is ModuleDetail container !
       </div>
     );
   }
@@ -23,7 +23,7 @@ const mapStateToProps = selectModuleDetail();
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch
+    dispatch,
   };
 }
 

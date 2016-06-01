@@ -7,7 +7,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 
 import { createSelector } from 'reselect';
 
@@ -35,8 +34,6 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import styles from './styles.css';
 
 export class HomePage extends React.Component {
-  shouldComponentUpdate = shouldPureComponentUpdate;
-
   /**
    * Changes the route
    *
@@ -60,14 +57,14 @@ export class HomePage extends React.Component {
     if (this.props.loading) {
       mainContent = (<List component={LoadingIndicator} />);
 
-    // Show an error if there is one
+      // Show an error if there is one
     } else if (this.props.error !== false) {
       const ErrorComponent = () => (
         <ListItem item={'Something went wrong, please try again!'} />
       );
       mainContent = (<List component={ErrorComponent} />);
 
-    // If we're not loading, don't have an error and there are repos, show the repos
+      // If we're not loading, don't have an error and there are repos, show the repos
     } else if (this.props.repos !== false) {
       mainContent = (<List items={this.props.repos} component={RepoListItem} />);
     }

@@ -9,7 +9,6 @@ const selectModuleDetailDomain = () => state => state.get('moduleDetail');
  * Other specific selectors
  */
 
-
 /**
  * Default selector used by ModuleDetail
  */

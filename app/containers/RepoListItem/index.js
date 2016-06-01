@@ -6,10 +6,10 @@
 /* eslint-disable react/prefer-stateless-function */
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {createSelector} from 'reselect';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
-import {selectCurrentUser} from 'containers/App/selectors';
+import { selectCurrentUser } from 'containers/App/selectors';
 
 import ListItem from 'components/ListItem';
 import A from 'components/A';
@@ -18,15 +18,13 @@ import styles from './styles.css';
 
 export class RepoListItem extends React.Component {
   render() {
-    const item = this.props.item._fields[0].properties;
+    const item = this.props.item;
     console.log(item);
 
     // Put together the content of the repository
     const content = (
       <div className={styles.linkWrapper}>
-        <A
-          className={styles.linkRepo}
-          href={'module/' + item.uid}>
+        <A className={styles.linkRepo} href={`module/${item.uid}`}>
           <div>{item.uid}</div>
           {item.name_de}
         </A>
@@ -35,7 +33,7 @@ export class RepoListItem extends React.Component {
 
     // Render the content into a list item
     return (
-      <ListItem key={`repo-list-item-${item.name_de}`} item={content}/>
+      <ListItem key={`repo-list-item-${item.name_de}`} item={content} />
     );
   }
 }
@@ -47,5 +45,5 @@ RepoListItem.propTypes = {
 
 export default connect(createSelector(
   selectCurrentUser(),
-  (currentUser) => ({currentUser})
+  (currentUser) => ({ currentUser })
 ))(RepoListItem);
