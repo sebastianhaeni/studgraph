@@ -168,6 +168,7 @@
     "redux-saga": "^0.10.0",
     "reselect": "^2.5.1",
     "sanitize.css": "^3.3.0",
+    "vis": "^4.16.1",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {

@@ -18,7 +18,7 @@ import styles from './styles.css';
 
 export class RepoListItem extends React.Component {
   render() {
-    const item = this.props.item._fields[0].properties;
+    const item = this.props.item;
     console.log(item);
 
     // Put together the content of the repository

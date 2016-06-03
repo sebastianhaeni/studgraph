@@ -8,12 +8,13 @@ import {take, call, put, select, race} from 'redux-saga/effects';
 
 import {LOCATION_CHANGE} from 'react-router-redux';
 
+import request from 'utils/request';
+
 import {LOAD_REPOS} from 'containers/App/constants';
 import {reposLoaded, repoLoadingError} from 'containers/App/actions';
 
 //import request from 'utils/request';
 import {selectUsername} from 'containers/HomePage/selectors';
-import {v1 as neo4j}  from 'neo4j-driver/lib/browser/neo4j-web';
 
 // Bootstrap sagas
 export default [
@@ -31,11 +32,30 @@ export function* getGithubData() {
     if (watcher.stop) break;
 
     const username = yield select(selectUsername());
-    const driver = neo4j.driver("http://app51574861-6ZaiAq:moGGdF579oSmDCjyPveW@app515748616zaiaq.sb04.stations.graphenedb.com:24789", neo4j.auth.basic("neo4j", "1234"));
-    const session = driver.session();
 
-    let result = yield call([session, session.run], "MATCH (n:Module) WHERE n.name_de =~ {nameParam} RETURN n",
-      {nameParam: '(?i)' + username + '.*'});
-    yield put(reposLoaded(result.records, username));
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic realm="Neo4j" ' + btoa('neo4j:1234'));
+    headers.append('Content-Type', 'application/json');
+    const response = yield call(request, 'http://localhost:7474/db/data/transaction/commit', {
+      //const response = yield call(request, 'http://app515748616zaiaq.sb04.stations.graphenedb.com:24789/db/data/transaction/commit', {
+      headers: headers,
+      method: 'POST',
+      body: JSON.stringify({
+        statements: [{
+          statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
+          parameters: {name: '(?i).*' + username + '.*'}
+        }]
+      }),
+    });
+
+    if (response.err === undefined || response.err === null) {
+      const rows = response.data.results.length > 0 && response.data.results[0].data.length > 0
+        ? response.data.results[0].data.map(n => n.row[0])
+        : [];
+      yield put(reposLoaded(rows, username));
+    } else {
+      console.log(response.err); // eslint-disable-line no-console
+      yield put(repoLoadingError(response.err));
+    }
   }
 }

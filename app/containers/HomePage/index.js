@@ -5,11 +5,11 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import {connect} from 'react-redux';
+import {push} from 'react-router-redux';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 import {
   selectRepos,
@@ -21,8 +21,8 @@ import {
   selectUsername,
 } from './selectors';
 
-import { changeUsername } from './actions';
-import { loadRepos } from '../App/actions';
+import {changeUsername} from './actions';
+import {loadRepos} from '../App/actions';
 
 import RepoListItem from 'containers/RepoListItem';
 import Button from 'components/Button';
@@ -58,18 +58,17 @@ export class HomePage extends React.Component {
 
     // Show a loading indicator when we're loading
     if (this.props.loading) {
-      mainContent = (<List component={LoadingIndicator} />);
+      mainContent = (<List component={LoadingIndicator}/>);
 
-    // Show an error if there is one
+      // Show an error if there is one
     } else if (this.props.error !== false) {
       const ErrorComponent = () => (
-        <ListItem item={'Something went wrong, please try again!'} />
+        <ListItem item={'Something went wrong, please try again!'}/>
       );
-      mainContent = (<List component={ErrorComponent} />);
-
-    // If we're not loading, don't have an error and there are repos, show the repos
+      mainContent = (<List component={ErrorComponent}/>);
+      // If we're not loading, don't have an error and there are repos, show the repos
     } else if (this.props.repos !== false) {
-      mainContent = (<List items={this.props.repos} component={RepoListItem} />);
+      mainContent = (<List items={this.props.repos} component={RepoListItem}/>);
     }
 
     return (
@@ -90,6 +89,7 @@ export class HomePage extends React.Component {
                   placeholder="Spieltheorie"
                   value={this.props.username}
                   onChange={this.props.onChangeUsername}
+                  autoFocus
                 />
               </label>
             </form>
@@ -137,5 +137,5 @@ export default connect(createSelector(
   selectUsername(),
   selectLoading(),
   selectError(),
-  (repos, username, loading, error) => ({ repos, username, loading, error })
+  (repos, username, loading, error) => ({repos, username, loading, error})
 ), mapDispatchToProps)(HomePage);
