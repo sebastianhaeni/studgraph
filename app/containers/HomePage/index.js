@@ -87,6 +87,7 @@ export class HomePage extends React.Component {
                   placeholder="Spieltheorie"
                   value={this.props.username}
                   onChange={this.props.onChangeUsername}
+                  autoFocus
                 />
               </label>
             </form>

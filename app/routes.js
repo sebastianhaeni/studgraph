@@ -47,7 +47,7 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
-      path: '/module/',
+      path: '/module/:id',
       name: 'module',
       getComponent(nextState, cb) {
         System.import('containers/ModuleDetail')

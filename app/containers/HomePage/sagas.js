@@ -31,26 +31,29 @@ export function* getGithubData() {
 
     const username = yield select(selectUsername());
 
-    const requestURL = 'http://app515748616zaiaq.sb04.stations.graphenedb.com:24789/db/data/transaction/commit';
-    const nodes = yield call(request, requestURL, {
-      method: 'post',
-      mode: 'cors',
-      body: {
-        statements: [
-          {
-            statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
-            parameters: { props: { name: username } },
-          },
-        ],
-      },
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic realm="Neo4j" ' + btoa('neo4j:1234'));
+    headers.append('Content-Type', 'application/json');
+    const response = yield call(request, 'http://localhost:7474/db/data/transaction/commit', {
+      //const response = yield call(request, 'http://app515748616zaiaq.sb04.stations.graphenedb.com:24789/db/data/transaction/commit', {
+      headers: headers,
+      method: 'POST',
+      body: JSON.stringify({
+        statements: [{
+          statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
+          parameters: {name: '(?i).*' + username + '.*'}
+        }]
+      }),
     });
 
-    // We return an object in a specific format, see utils/request.js for more information
-    if (nodes.err === undefined || nodes.err === null) {
-      yield put(reposLoaded(nodes.data, username));
+    if (response.err === undefined || response.err === null) {
+      const rows = response.data.results.length > 0 && response.data.results[0].data.length > 0
+        ? response.data.results[0].data.map(n => n.row[0])
+        : [];
+      yield put(reposLoaded(rows, username));
     } else {
-      console.log(nodes.err.response); // eslint-disable-line no-console
-      yield put(repoLoadingError(nodes.err));
+      console.log(response.err); // eslint-disable-line no-console
+      yield put(repoLoadingError(response.err));
     }
   }
 }
