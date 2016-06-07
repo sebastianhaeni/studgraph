@@ -32,17 +32,16 @@ export function* getGithubData() {
     const username = yield select(selectUsername());
 
     const headers = new Headers();
-    headers.append('Authorization', 'Basic realm="Neo4j" ' + btoa('neo4j:1234'));
+    headers.append('Authorization', `Basic realm="Neo4j" ${btoa('neo4j:1234')}`);
     headers.append('Content-Type', 'application/json');
     const response = yield call(request, 'http://localhost:7474/db/data/transaction/commit', {
-      //const response = yield call(request, 'http://app515748616zaiaq.sb04.stations.graphenedb.com:24789/db/data/transaction/commit', {
-      headers: headers,
+      headers,
       method: 'POST',
       body: JSON.stringify({
         statements: [{
           statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
-          parameters: {name: '(?i).*' + username + '.*'}
-        }]
+          parameters: { name: `(?i).*${username}.*` },
+        }],
       }),
     });
 
