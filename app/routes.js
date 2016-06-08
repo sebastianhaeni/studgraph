@@ -1,7 +1,5 @@
 // These are the pages you can go to.
 // They are all wrapped in the App component, which should contain the navbar etc
-// See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
-// about the code splitting business
 import { getHooks } from './utils/hooks';
 
 const errorLoading = (err) => {
@@ -50,9 +48,20 @@ export default function createRoutes(store) {
       path: '/module/:id',
       name: 'module',
       getComponent(nextState, cb) {
-        System.import('containers/ModuleDetail')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+        const importModules = Promise.all([
+          System.import('containers/ModuleDetail/sagas'),
+          System.import('containers/ModuleDetail'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       },
     }, {
       path: '*',
