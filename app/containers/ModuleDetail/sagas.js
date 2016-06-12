@@ -25,6 +25,8 @@ export function* defaultSaga() {
 
     const name = yield select(selectUid());
 
+    console.log(name);
+
     const response = yield(call(api, {
       statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
       parameters: { name: `(?i).*${name}.*` },

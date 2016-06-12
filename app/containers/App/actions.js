@@ -35,21 +35,21 @@ export function loadModules() {
 /**
  * Dispatched when the modules are loaded by the getModuleData saga
  *
- * @param  {array} repos The module data
+ * @param  {array} modules The module data
  * @param  {string} username The current name
  *
- * @return {object}      An action object with a type of LOAD_MODULES_SUCCESS passing the repos
+ * @return {object}      An action object with a type of LOAD_MODULES_SUCCESS passing the modules
  */
-export function modulesLoaded(repos, username) {
+export function modulesLoaded(modules, username) {
   return {
     type: LOAD_MODULES_SUCCESS,
-    repos,
+    modules,
     username,
   };
 }
 
 /**
- * Dispatched when loading the repositories fails
+ * Dispatched when loading the modules fails
  *
  * @param  {object} error The error
  *

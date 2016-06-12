@@ -19,7 +19,7 @@ function A(props) {
 
 A.propTypes = {
   className: PropTypes.string,
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
   target: PropTypes.string,
   children: PropTypes.node.isRequired,
 };

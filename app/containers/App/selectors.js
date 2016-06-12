@@ -21,9 +21,9 @@ const selectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
-const selectRepos = () => createSelector(
+const selectModules = () => createSelector(
   selectGlobal(),
-  (globalState) => globalState.getIn(['userData', 'repositories'])
+  (globalState) => globalState.getIn(['userData', 'modules'])
 );
 
 const selectLocationState = () => {
@@ -47,6 +47,6 @@ export {
   selectCurrentUser,
   selectLoading,
   selectError,
-  selectRepos,
+  selectModules,
   selectLocationState,
 };

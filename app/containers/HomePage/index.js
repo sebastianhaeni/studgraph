@@ -11,14 +11,14 @@ import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
 import {
-  selectRepos,
+  selectModules,
   selectLoading,
   selectError,
 } from 'containers/App/selectors';
 
 import { selectName } from './selectors';
 import { loadModules } from '../App/actions';
-import { changeUsername }from './actions';
+import { changeUsername } from './actions';
 
 import RepoListItem from 'containers/RepoListItem';
 import Button from 'components/Button';
@@ -38,6 +38,14 @@ export class HomePage extends React.Component {
    */
   openRoute = (route) => {
     this.props.changeRoute(route);
+  };
+
+  /**
+   * Changed route to '/module/{uid}'
+   */
+  openModulePage = (uid) => {
+    console.log(uid);
+    this.openRoute(`/module/${uid}`);
   };
 
   /**
@@ -61,9 +69,9 @@ export class HomePage extends React.Component {
       );
       mainContent = (<List component={ErrorComponent} />);
 
-      // If we're not loading, don't have an error and there are repos, show the repos
-    } else if (this.props.repos !== false) {
-      mainContent = (<List items={this.props.repos} component={RepoListItem} />);
+      // If we're not loading, don't have an error and there are modules, show the modules
+    } else if (this.props.modules !== false) {
+      mainContent = (<List items={this.props.modules} handleClick={this.openModulePage} component={RepoListItem} />);
     }
 
     return (
@@ -105,7 +113,7 @@ HomePage.propTypes = {
     React.PropTypes.object,
     React.PropTypes.bool,
   ]),
-  repos: React.PropTypes.oneOfType([
+  modules: React.PropTypes.oneOfType([
     React.PropTypes.array,
     React.PropTypes.bool,
   ]),
@@ -129,9 +137,9 @@ function mapDispatchToProps(dispatch) {
 
 // Wrap the component to inject dispatch and state into it
 export default connect(createSelector(
-  selectRepos(),
+  selectModules(),
   selectName(),
   selectLoading(),
   selectError(),
-  (repos, username, loading, error) => ({ repos, username, loading, error })
+  (modules, username, loading, error) => ({ modules, username, loading, error })
 ), mapDispatchToProps)(HomePage);

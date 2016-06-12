@@ -1,5 +1,5 @@
 /**
- * Gets the repositories of the user from Github
+ * Gets the modules from a neo4j server
  */
 
 /* eslint-disable no-constant-condition */

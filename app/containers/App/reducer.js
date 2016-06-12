@@ -23,7 +23,7 @@ const initialState = fromJS({
   error: false,
   currentUser: false,
   userData: fromJS({
-    repositories: false,
+    modules: false,
   }),
 });
 
@@ -33,10 +33,10 @@ function homeReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .setIn(['userData', 'repositories'], false);
+        .setIn(['userData', 'modules'], false);
     case LOAD_MODULES_SUCCESS:
       return state
-        .setIn(['userData', 'repositories'], action.repos)
+        .setIn(['userData', 'modules'], action.modules)
         .set('loading', false)
         .set('currentUser', action.username);
     case LOAD_MODULES_ERROR:

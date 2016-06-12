@@ -17,15 +17,22 @@ import A from 'components/A';
 import styles from './styles.css';
 
 export class RepoListItem extends React.Component {
+
   render() {
     const item = this.props.item;
-
-    // Put together the content of the repository
+    const style = {
+      display: 'inline-block',
+      width: '100px',
+      lineHeight: '47px',
+    };
+    // Put together the content of the module
     const content = (
       <div className={styles.linkWrapper}>
-        <A className={styles.linkRepo} href={`module/${item.uid}`}>
-          <div>{item.uid}</div>
-          {item.name_de}
+        <A onClick={() => this.props.handleClick(item.uid)}>
+          <div>
+            <span style={style}>{item.uid}</span>
+            <span>{item.name_de}</span>
+          </div>
         </A>
       </div>
     );
@@ -40,6 +47,7 @@ export class RepoListItem extends React.Component {
 RepoListItem.propTypes = {
   item: React.PropTypes.object,
   currentUser: React.PropTypes.string,
+  handleClick: React.PropTypes.func,
 };
 
 export default connect(createSelector(
