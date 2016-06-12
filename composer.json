@@ -1,0 +1,12 @@
+{
+  "name": "sebastianhaeni/studgraph",
+  "authors": [
+    {
+      "name": "Sebastian Haeni",
+      "email": "haeni.sebastian@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^5.6.0"
+  }
+}
