@@ -20,8 +20,7 @@ import { selectName } from './selectors';
 import { loadModules } from '../App/actions';
 import { changeUsername } from './actions';
 
-import RepoListItem from 'containers/RepoListItem';
-import Button from 'components/Button';
+import ModuleListItem from 'containers/ModuleListItem';
 import H1 from 'components/H1';
 import H2 from 'components/H2';
 import List from 'components/List';
@@ -44,15 +43,7 @@ export class HomePage extends React.Component {
    * Changed route to '/module/{uid}'
    */
   openModulePage = (uid) => {
-    console.log(uid);
     this.openRoute(`/module/${uid}`);
-  };
-
-  /**
-   * Changed route to '/features'
-   */
-  openFeaturesPage = () => {
-    this.openRoute('/features');
   };
 
   render() {
@@ -71,7 +62,7 @@ export class HomePage extends React.Component {
 
       // If we're not loading, don't have an error and there are modules, show the modules
     } else if (this.props.modules !== false) {
-      mainContent = (<List items={this.props.modules} handleClick={this.openModulePage} component={RepoListItem} />);
+      mainContent = (<List items={this.props.modules} handleClick={this.openModulePage} component={ModuleListItem} />);
     }
 
     return (
@@ -82,14 +73,13 @@ export class HomePage extends React.Component {
             <p>A highly scalable, graph-first tool with the best UX and a focus on performance and best practices</p>
           </section>
           <section className={styles.textSection}>
-            <H2>Try me!</H2>
             <form className={styles.usernameForm}>
               <label htmlFor="username">Search for modules:
                 <input
                   id="username"
                   className={styles.input}
                   type="text"
-                  placeholder="Semantic Web"
+                  placeholder="E.g. Semantic Web"
                   value={this.props.username}
                   onChange={this.props.onChangeUsername}
                   autoComplete="off"
@@ -99,7 +89,6 @@ export class HomePage extends React.Component {
             </form>
             {mainContent}
           </section>
-          <Button handleRoute={this.openFeaturesPage}>Features</Button>
         </div>
       </article>
     );
@@ -141,5 +130,5 @@ export default connect(createSelector(
   selectName(),
   selectLoading(),
   selectError(),
-  (modules, username, loading, error) => ({ modules, username, loading, error })
+  (modules, name, loading, error) => ({ modules, name, loading, error })
 ), mapDispatchToProps)(HomePage);

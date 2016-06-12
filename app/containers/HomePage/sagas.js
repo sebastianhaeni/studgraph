@@ -32,7 +32,7 @@ export function* getModuleData() {
     const name = yield select(selectName());
 
     const response = yield(call(api, {
-      statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
+      statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} OR n.name_fr =~ {name} OR n.uid =~ {name} RETURN n',
       parameters: { name: `(?i).*${name}.*` },
     }));
 

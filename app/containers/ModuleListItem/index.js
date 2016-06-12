@@ -1,7 +1,7 @@
 /**
- * RepoListItem
+ * ModuleistItem
  *
- * Lists the name and the issue count of a repository
+ * Lists the name and the issue count of a module
  */
 /* eslint-disable react/prefer-stateless-function */
 
@@ -16,7 +16,7 @@ import A from 'components/A';
 
 import styles from './styles.css';
 
-export class RepoListItem extends React.Component {
+export class ModuleListItem extends React.Component {
 
   render() {
     const item = this.props.item;
@@ -39,12 +39,12 @@ export class RepoListItem extends React.Component {
 
     // Render the content into a list item
     return (
-      <ListItem key={`repo-list-item-${item.name_de}`} item={content} />
+      <ListItem key={`module-list-item-${item.name_de}`} item={content} />
     );
   }
 }
 
-RepoListItem.propTypes = {
+ModuleListItem.propTypes = {
   item: React.PropTypes.object,
   currentUser: React.PropTypes.string,
   handleClick: React.PropTypes.func,
@@ -53,4 +53,4 @@ RepoListItem.propTypes = {
 export default connect(createSelector(
   selectCurrentUser(),
   (currentUser) => ({ currentUser })
-))(RepoListItem);
+))(ModuleListItem);

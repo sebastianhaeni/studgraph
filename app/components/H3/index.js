@@ -1,8 +1,10 @@
 import React from 'react';
 
+import styles from './styles.css';
+
 function H3(props) {
   return (
-    <h3 { ...props } />
+    <h3 className={styles.heading3} { ...props } />
   );
 }
 

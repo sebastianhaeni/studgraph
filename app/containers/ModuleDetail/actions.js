@@ -5,22 +5,30 @@
  */
 
 import {
-  DEFAULT_ACTION,
   LOAD_MODULE,
+  LOAD_MODULE_SUCCESS,
+  LOAD_GRAPH_SUCCESS,
   LOAD_MODULE_ERROR,
 } from './constants';
 
-export function defaultAction() {
+export function loadModule(uid) {
   return {
-    type: DEFAULT_ACTION,
+    type: LOAD_MODULE,
+    uid,
   };
 }
 
-export function moduleLoaded(module, uid) {
+export function moduleLoaded(module) {
   return {
-    type: LOAD_MODULE,
+    type: LOAD_MODULE_SUCCESS,
     module,
-    uid,
+  };
+}
+
+export function graphLoaded(graph) {
+  return {
+    type: LOAD_GRAPH_SUCCESS,
+    graph,
   };
 }
 
