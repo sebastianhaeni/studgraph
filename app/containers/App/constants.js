@@ -9,6 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LOAD_REPOS = 'studgraph/App/LOAD_REPOS';
-export const LOAD_REPOS_SUCCESS = 'studgraph/App/LOAD_REPOS_SUCCESS';
-export const LOAD_REPOS_ERROR = 'studgraph/App/LOAD_REPOS_ERROR';
+export const LOAD_MODULES = 'studgraph/App/LOAD_MODULES';
+export const LOAD_MODULES_SUCCESS = 'studgraph/App/LOAD_MODULES_SUCCESS';
+export const LOAD_MODULES_ERROR = 'studgraph/App/LOAD_MODULES_ERROR';

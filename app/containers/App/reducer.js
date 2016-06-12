@@ -11,9 +11,9 @@
  */
 
 import {
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS,
-  LOAD_REPOS_ERROR,
+  LOAD_MODULES_SUCCESS,
+  LOAD_MODULES,
+  LOAD_MODULES_ERROR,
 } from './constants';
 import { fromJS } from 'immutable';
 
@@ -29,17 +29,17 @@ const initialState = fromJS({
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_REPOS:
+    case LOAD_MODULES:
       return state
         .set('loading', true)
         .set('error', false)
         .setIn(['userData', 'repositories'], false);
-    case LOAD_REPOS_SUCCESS:
+    case LOAD_MODULES_SUCCESS:
       return state
         .setIn(['userData', 'repositories'], action.repos)
         .set('loading', false)
         .set('currentUser', action.username);
-    case LOAD_REPOS_ERROR:
+    case LOAD_MODULES_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);

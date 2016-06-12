@@ -8,6 +8,10 @@ const selectModuleDetailDomain = () => state => state.get('moduleDetail');
 /**
  * Other specific selectors
  */
+const selectUid = () => createSelector(
+  selectModuleDetailDomain(),
+  (moduleState) => moduleState.get('id')
+);
 
 /**
  * Default selector used by ModuleDetail
@@ -21,4 +25,5 @@ const selectModuleDetail = () => createSelector(
 export default selectModuleDetail;
 export {
   selectModuleDetailDomain,
+  selectUid,
 };

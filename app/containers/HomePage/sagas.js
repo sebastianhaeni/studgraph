@@ -8,51 +8,42 @@ import { take, call, put, select, race } from 'redux-saga/effects';
 
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { LOAD_MODULES } from 'containers/App/constants';
+import { modulesLoaded, moduleLoadingError } from 'containers/App/actions';
 
-import request from 'utils/request';
-import { selectUsername } from 'containers/HomePage/selectors';
+import api from 'utils/api';
+import { selectName } from 'containers/HomePage/selectors';
 
 // Bootstrap sagas
 export default [
-  getGithubData,
+  getModuleData,
 ];
 
 // Individual exports for testing
-export function* getGithubData() {
+export function* getModuleData() {
   while (true) {
     const watcher = yield race({
-      loadRepos: take(LOAD_REPOS),
+      loadModules: take(LOAD_MODULES),
       stop: take(LOCATION_CHANGE), // stop watching if user leaves page
     });
 
     if (watcher.stop) break;
 
-    const username = yield select(selectUsername());
+    const name = yield select(selectName());
 
-    const headers = new Headers();
-    headers.append('Authorization', `Basic realm="Neo4j" ${btoa('neo4j:1234')}`);
-    headers.append('Content-Type', 'application/json');
-    const response = yield call(request, 'http://localhost:7474/db/data/transaction/commit', {
-      headers,
-      method: 'POST',
-      body: JSON.stringify({
-        statements: [{
-          statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
-          parameters: { name: `(?i).*${username}.*` },
-        }],
-      }),
-    });
+    const response = yield(call(api, {
+      statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} RETURN n',
+      parameters: { name: `(?i).*${name}.*` },
+    }));
 
     if (response.err === undefined || response.err === null) {
       const rows = response.data.results.length > 0 && response.data.results[0].data.length > 0
         ? response.data.results[0].data.map(n => n.row[0])
         : [];
-      yield put(reposLoaded(rows, username));
+      yield put(modulesLoaded(rows, name));
     } else {
       console.log(response.err); // eslint-disable-line no-console
-      yield put(repoLoadingError(response.err));
+      yield put(moduleLoadingError(response.err));
     }
   }
 }

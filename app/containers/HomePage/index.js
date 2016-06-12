@@ -16,12 +16,9 @@ import {
   selectError,
 } from 'containers/App/selectors';
 
-import {
-  selectUsername,
-} from './selectors';
-
-import { changeUsername } from './actions';
-import { loadRepos } from '../App/actions';
+import { selectName } from './selectors';
+import { loadModules } from '../App/actions';
+import { changeUsername }from './actions';
 
 import RepoListItem from 'containers/RepoListItem';
 import Button from 'components/Button';
@@ -78,15 +75,16 @@ export class HomePage extends React.Component {
           </section>
           <section className={styles.textSection}>
             <H2>Try me!</H2>
-            <form className={styles.usernameForm} onSubmit={this.props.onSubmitForm}>
+            <form className={styles.usernameForm}>
               <label htmlFor="username">Search for modules:
                 <input
                   id="username"
                   className={styles.input}
                   type="text"
-                  placeholder="Spieltheorie"
+                  placeholder="Semantic Web"
                   value={this.props.username}
                   onChange={this.props.onChangeUsername}
+                  autoComplete="off"
                   autoFocus
                 />
               </label>
@@ -118,11 +116,11 @@ HomePage.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
     changeRoute: (url) => dispatch(push(url)),
-    onSubmitForm: (evt) => {
+    onChangeUsername: (evt) => {
       evt.preventDefault();
-      dispatch(loadRepos());
+      dispatch(changeUsername(evt.target.value));
+      dispatch(loadModules());
     },
 
     dispatch,
@@ -132,7 +130,7 @@ function mapDispatchToProps(dispatch) {
 // Wrap the component to inject dispatch and state into it
 export default connect(createSelector(
   selectRepos(),
-  selectUsername(),
+  selectName(),
   selectLoading(),
   selectError(),
   (repos, username, loading, error) => ({ repos, username, loading, error })
