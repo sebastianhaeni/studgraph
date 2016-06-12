@@ -25,6 +25,7 @@ export class ModuleListItem extends React.Component {
       width: '100px',
       lineHeight: '47px',
     };
+
     // Put together the content of the module
     const content = (
       <div className={styles.linkWrapper}>

@@ -16,23 +16,28 @@ export default function (response) {
       if (nodes.get(node.uid)) {
         continue;
       }
+
       nodes.add({
         id: node.uid,
         label: node.name_de,
         level: i,
       });
     }
+
     for (let i = 0; i < collection.meta.length - 1; i++) {
       if (i === 1) {
         nodes.update({ id: collection.row[i].uid, label: collection.row[i].name_de, color: '#ffff00' });
       }
+
       if (!cache.hasOwnProperty(collection.row[i].uid)) {
         cache[collection.row[i].uid] = [];
       }
+
       if (cache[collection.row[i].uid].indexOf(collection.row[i + 1].uid) >= 0 ||
         collection.row[i].uid === collection.row[i + 1].uid) {
         continue;
       }
+
       cache[collection.row[i].uid].push(collection.row[i + 1].uid);
       edges.add({
         from: collection.row[i].uid,

@@ -19,11 +19,9 @@ import {
   selectError,
 } from './selectors';
 import { loadModule } from './actions';
-import styles from './styles.css';
 import Neo4jGraph from 'components/Neo4jGraph';
 import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
-
 
 export class ModuleDetail extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -53,6 +51,7 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
     if (nextProps.params.id === this.id) {
       return;
     }
+
     this.id = nextProps.params.id;
     this.props.load(nextProps.params.id);
   }
@@ -72,6 +71,7 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
     if (params.nodes.length <= 0) {
       return;
     }
+
     const uid = params.nodes[0];
     this.openRoute(`/module/${uid}`);
   };
@@ -117,7 +117,7 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
     }
 
     return (
-      <div className={styles.moduleDetail}>
+      <div>
         <Button handleRoute={this.openHomePage}>Back</Button>
         <H1>{this.props.params.id} - {this.props.loading ? '...' : this.props.module.name_de}</H1>
         <H3>Stats</H3>
