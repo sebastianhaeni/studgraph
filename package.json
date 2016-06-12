@@ -7,7 +7,8 @@
     "url": "git://github.com/mxstbr/react-boilerplate.git"
   },
   "author": "Sebastian Häni",
-  "license": "unlicensed",
+  "private": true,
+  "license": "UNLICENSED",
   "scripts": {
     "prebuild": "npm run test && npm run build:clean",
     "postinstall": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p",
