@@ -57,6 +57,15 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
   }
 
   id;
+  moduleProps;
+
+  graphStyle = {
+    height: '600px',
+  };
+
+  firstCellStyle = {
+    minWidth: '200px',
+  };
 
   /**
    * Changes the route
@@ -81,9 +90,7 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
   };
 
   render() {
-    const graphStyle = {
-      height: '600px',
-    };
+    this.moduleProps = [];
 
     let statsContent = null;
     let graphContent = null;
@@ -92,16 +99,12 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
       statsContent = (<LoadingIndicator />);
       graphContent = statsContent;
     } else {
-      const moduleProps = [];
-      const firstCellStyle = {
-        minWidth: '200px',
-      };
 
       Object.keys(this.props.module).forEach((key) => {
         const prop = this.props.module[key];
-        moduleProps.push(
+        this.moduleProps.push(
           <tr key={key}>
-            <td style={firstCellStyle}>{ModuleDetail.mapToLabel(key)}</td>
+            <td style={this.firstCellStyle}>{ModuleDetail.mapToLabel(key)}</td>
             <td>{prop}</td>
           </tr>
         );
@@ -109,7 +112,7 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
       statsContent = (
         <table>
           <tbody>
-          {moduleProps}
+          {this.moduleProps}
           </tbody>
         </table>
       );
@@ -123,7 +126,7 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
         <H3>Stats</H3>
         {statsContent}
         <H3>Dependency graph</H3>
-        <div style={graphStyle}>
+        <div style={this.graphStyle}>
           {graphContent}
         </div>
       </div>
