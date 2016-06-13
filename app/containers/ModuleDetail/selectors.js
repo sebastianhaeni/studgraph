@@ -23,6 +23,11 @@ const selectGraph = () => createSelector(
   (moduleState) => moduleState.getIn(['userData', 'graph'])
 );
 
+const selectHierarchicalGraph = () => createSelector(
+  selectModuleDetailDomain(),
+  (moduleState) => moduleState.getIn(['userData', 'hierarchicalGraph'])
+);
+
 const selectLoading = () => createSelector(
   selectModuleDetailDomain(),
   (globalState) => globalState.get('dataLoading') || globalState.get('graphLoading')
@@ -47,6 +52,7 @@ export {
   selectModuleDetailDomain,
   selectUid,
   selectGraph,
+  selectHierarchicalGraph,
   selectLoading,
   selectError,
   selectModule,

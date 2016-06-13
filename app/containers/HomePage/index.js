@@ -23,6 +23,7 @@ import { changeUsername } from './actions';
 import ModuleListItem from 'containers/ModuleListItem';
 import H1 from 'components/H1';
 import List from 'components/List';
+import Button from 'components/Button';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 
@@ -43,6 +44,13 @@ export class HomePage extends React.Component {
    */
   openModulePage = (uid) => {
     this.openRoute(`/module/${uid}`);
+  };
+
+  /**
+   * Changed route to '/graph/'
+   */
+  openModuleGraph = () => {
+    this.openRoute(`/graph/`);
   };
 
   render() {
@@ -88,6 +96,7 @@ export class HomePage extends React.Component {
             </form>
             {mainContent}
           </section>
+          <Button handleRoute={this.openModuleGraph}>Module Graph</Button>
         </div>
       </article>
     );

@@ -4,7 +4,12 @@ import { take, call, put, select, race } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { LOAD_MODULE } from './constants';
-import { moduleLoaded, graphLoaded, moduleLoadingError } from './actions';
+import { 
+  moduleLoaded, 
+  graphLoaded, 
+  hierarchicalGraphLoaded,
+  moduleLoadingError, 
+} from './actions';
 
 import { selectUid } from './selectors';
 import api from 'utils/api';
@@ -14,6 +19,7 @@ import neo4j2vis from 'utils/neo4j2vis';
 export default [
   getModuleData,
   getGraphData,
+  getHierarchicalData,
 ];
 
 export function* getModuleData() {
@@ -62,6 +68,31 @@ export function* getGraphData() {
 
     if (graphResponse.err === undefined || graphResponse.err === null) {
       yield put(graphLoaded(neo4j2vis(graphResponse.data)));
+    } else {
+      console.log(graphResponse.err); // eslint-disable-line no-console
+      yield put(moduleLoadingError(graphResponse.err));
+    }
+  }
+}
+
+export function* getHierarchicalData() {
+  while (true) {
+    const watcher = yield race({
+      loadModule: take(LOAD_MODULE),
+      stop: take(LOCATION_CHANGE), // stop watching if user leaves page
+    });
+
+    if (watcher.stop) break;
+
+    const uid = yield select(selectUid());
+
+    const graphResponse = yield(call(api, {
+      statement: 'MATCH (before)-[*0..]->(current{uid:{uid}}) RETURN before, current',
+      parameters: { uid },
+    }));
+
+    if (graphResponse.err === undefined || graphResponse.err === null) {
+      yield put(hierarchicalGraphLoaded(neo4j2vis(graphResponse.data)));
     } else {
       console.log(graphResponse.err); // eslint-disable-line no-console
       yield put(moduleLoadingError(graphResponse.err));

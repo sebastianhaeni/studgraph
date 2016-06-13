@@ -15,6 +15,7 @@ import H3 from 'components/H3';
 import {
   selectModule,
   selectGraph,
+  selectHierarchicalGraph,
   selectLoading,
   selectError,
 } from './selectors';
@@ -94,10 +95,12 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
 
     let statsContent = null;
     let graphContent = null;
+    let hierarchicalGraphContent = null;
 
     if (this.props.loading) {
       statsContent = (<LoadingIndicator />);
       graphContent = statsContent;
+      hierarchicalGraphContent = statsContent;
     } else {
 
       Object.keys(this.props.module).forEach((key) => {
@@ -117,6 +120,7 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
         </table>
       );
       graphContent = (<Neo4jGraph graph={this.props.graph} handleDoubleClick={this.handleDoubleClick} />);
+      hierarchicalGraphContent = (<Neo4jGraph graph={this.props.hierarchicalGraph} />);
     }
 
     return (
@@ -128,6 +132,10 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
         <H3>Dependency graph</H3>
         <div style={this.graphStyle}>
           {graphContent}
+        </div>
+        <H3>Hierarchical graph</H3>
+        <div style={this.graphStyle}>
+          {hierarchicalGraphContent}
         </div>
       </div>
     );
@@ -149,6 +157,10 @@ ModuleDetail.propTypes = {
     React.PropTypes.object,
     React.PropTypes.bool,
   ]).isRequired,
+  hierarchicalGraph: React.PropTypes.oneOfType([
+    React.PropTypes.object,
+    React.PropTypes.bool,
+  ]).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -163,7 +175,8 @@ function mapDispatchToProps(dispatch) {
 export default connect(createSelector(
   selectModule(),
   selectGraph(),
+  selectHierarchicalGraph(),
   selectLoading(),
   selectError(),
-  (module, graph, loading, error) => ({ module, graph, loading, error })
+  (module, graph, hierarchicalGraph, loading, error) => ({ module, graph, hierarchicalGraph, loading, error })
 ), mapDispatchToProps)(ModuleDetail);
