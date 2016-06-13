@@ -1,6 +1,5 @@
 export const NEO4J = {
-  HOST: 'localhost',
-  PORT: 7474,
+  URL: 'https://localhost:7474',
   USERNAME: 'neo4j',
   PASSWORD: '1234',
 };
