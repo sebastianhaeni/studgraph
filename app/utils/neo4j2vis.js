@@ -1,47 +1,79 @@
-import { DataSet } from 'vis';
+import { DataSet } from "vis";
+
+function hashCode(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return hash;
+}
+
+function intToRGB(i) {
+  const c = (i & 0x00FFFFFF)
+    .toString(16)
+    .toUpperCase();
+
+  return '00000'.substring(0, 6 - c.length) + c;
+}
+
+function invertColor(hexTripletColor) {
+  let color = hexTripletColor;
+  color = parseInt(color, 16);          // convert to integer
+  color = 0xFFFFFF ^ color;             // invert three bytes
+  color = color.toString(16);           // convert to hex
+  color = (`000000${color}`).slice(-6); // pad with leading zeros
+  return color;
+}
 
 export default function (response) {
-  const graph = response.results.length > 0 && response.results[0].data.length > 0
-    ? response.results[0].data
-    : [];
-
   const nodes = new DataSet();
   const edges = new DataSet();
 
   const cache = {};
 
-  for (const collection of graph) {
-    for (let i = 0; i < collection.row.length; i++) {
-      const node = collection.row[i];
-      if (nodes.get(node.uid)) {
+  for (let i = 0; i < response.nodes.length; i++) {
+    const collection = response.nodes[i];
+    const keys = Object.keys(collection);
+    for (let j = 0; j < keys.length; j++) {
+      const element = collection[keys[j]];
+      const properties = element.properties;
+      const labels = element.labels;
+
+      if (nodes.get(element.id)) {
         continue;
       }
 
+      const color = intToRGB(hashCode(labels.join() + keys[j]));
+
       nodes.add({
-        id: node.uid,
-        label: node.name_de,
-        level: i,
+        id: element.id,
+        label: properties.name_de,
+        color: `#${color}`,
+        font: {
+          color: `#${invertColor(color)}`,
+        },
       });
     }
 
-    for (let i = 0; i < collection.meta.length - 1; i++) {
-      if (i === 1) {
-        nodes.update({ id: collection.row[i].uid, label: collection.row[i].name_de, color: '#ffff00' });
+    const relations = response.relations[i];
+    for (let j = 0; j < relations.length; j++) {
+      const relation = relations[j];
+
+      if (!cache.hasOwnProperty(relation.startNodeIdentity)) {
+        cache[relation.startNodeIdentity] = [];
       }
 
-      if (!cache.hasOwnProperty(collection.row[i].uid)) {
-        cache[collection.row[i].uid] = [];
-      }
-
-      if (cache[collection.row[i].uid].indexOf(collection.row[i + 1].uid) >= 0 ||
-        collection.row[i].uid === collection.row[i + 1].uid) {
+      if (cache[relation.startNodeIdentity].indexOf(relation.endNodeIdentity) >= 0 ||
+        relation.startNodeIdentity === relation.endNodeIdentity) {
         continue;
       }
 
-      cache[collection.row[i].uid].push(collection.row[i + 1].uid);
+      cache[relation.startNodeIdentity].push(relation.endNodeIdentity);
+
       edges.add({
-        from: collection.row[i].uid,
-        to: collection.row[i + 1].uid,
+        from: relation.startNodeIdentity,
+        to: relation.endNodeIdentity,
+        label: relation.type,
         arrows: 'to',
       });
     }

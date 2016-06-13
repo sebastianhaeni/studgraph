@@ -1,5 +1,5 @@
 export const NEO4J = {
-  URL: 'api.php',
+  URL: 'http://localhost:8000/api.php',
 };
 
 export default { NEO4J };

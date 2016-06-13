@@ -102,7 +102,6 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
       graphContent = statsContent;
       hierarchicalGraphContent = statsContent;
     } else {
-
       Object.keys(this.props.module).forEach((key) => {
         const prop = this.props.module[key];
         this.moduleProps.push(

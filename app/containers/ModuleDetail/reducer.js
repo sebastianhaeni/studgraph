@@ -21,6 +21,7 @@ const initialState = fromJS({
   currentUid: false,
   userData: fromJS({
     module: false,
+    hierarchicalGraph: {},
     graph: {},
   }),
 });

@@ -2,15 +2,8 @@
 
 import { take, call, put, select, race } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-
 import { LOAD_MODULE } from './constants';
-import { 
-  moduleLoaded, 
-  graphLoaded, 
-  hierarchicalGraphLoaded,
-  moduleLoadingError, 
-} from './actions';
-
+import { moduleLoaded, graphLoaded, hierarchicalGraphLoaded, moduleLoadingError } from './actions';
 import { selectUid } from './selectors';
 import api from 'utils/api';
 import neo4j2vis from 'utils/neo4j2vis';
@@ -33,15 +26,13 @@ export function* getModuleData() {
 
     const uid = yield select(selectUid());
 
-    const dataResponse = yield(call(api, {
-      statement: 'MATCH (n:Module) WHERE n.uid =~ {uid} RETURN n',
-      parameters: { uid },
-    }));
+    const dataResponse = yield(call(api,
+      'MATCH (n:Module) WHERE n.uid =~ {uid} RETURN n',
+      { uid },
+    ));
 
     if (dataResponse.err === undefined || dataResponse.err === null) {
-      const rows = dataResponse.data.results.length > 0 && dataResponse.data.results[0].data.length > 0
-        ? dataResponse.data.results[0].data.map(n => n.row[0])
-        : [];
+      const rows = dataResponse.data.nodes.map(n => n.n.properties);
       yield put(moduleLoaded(rows[0]));
     } else {
       console.log(dataResponse.err); // eslint-disable-line no-console
@@ -61,10 +52,11 @@ export function* getGraphData() {
 
     const uid = yield select(selectUid());
 
-    const graphResponse = yield(call(api, {
-      statement: 'MATCH (before)-[:precedes*0..]->(current{uid:{uid}})-[:precedes*0..]->(after) RETURN before, current, after',
-      parameters: { uid },
-    }));
+    const graphResponse = yield(call(api,
+      'MATCH (before)-[preceeding:precedes*0..]->(current{uid:{uid}})-[succeeding:precedes*0..]->(after) ' +
+      'RETURN before, current, after, preceeding, succeeding',
+      { uid },
+    ));
 
     if (graphResponse.err === undefined || graphResponse.err === null) {
       yield put(graphLoaded(neo4j2vis(graphResponse.data)));
@@ -86,10 +78,10 @@ export function* getHierarchicalData() {
 
     const uid = yield select(selectUid());
 
-    const graphResponse = yield(call(api, {
-      statement: 'MATCH (before)-[*0..]->(current{uid:{uid}}) RETURN before, current',
-      parameters: { uid },
-    }));
+    const graphResponse = yield(call(api,
+      'MATCH (before)-[r*0..]->(current{uid:{uid}}) RETURN before, current, r',
+      { uid },
+    ));
 
     if (graphResponse.err === undefined || graphResponse.err === null) {
       yield put(hierarchicalGraphLoaded(neo4j2vis(graphResponse.data)));

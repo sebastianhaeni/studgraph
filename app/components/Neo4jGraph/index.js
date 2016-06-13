@@ -6,14 +6,22 @@ import styles from './styles.css';
 export class Neo4jGraph extends React.Component {
 
   componentDidMount() {
+    this.createNetwork(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.createNetwork(nextProps);
+  }
+
+  createNetwork(props) {
     const options = {
       nodes: {
         shape: 'box',
       },
       interaction: { hover: true },
     };
-    this.network = new vis.Network(this.canvas, this.props.graph, options);
-    this.network.on('doubleClick', (params) => this.props.handleDoubleClick(params));
+    this.network = new vis.Network(this.canvas, props.graph, options);
+    this.network.on('doubleClick', (params) => props.handleDoubleClick(params));
   }
 
   network;
