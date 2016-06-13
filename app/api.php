@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 $grapheneUrl = getenv('GRAPHENEDB_URL');
 //$grapheneUrl = 'http://neo4j:1234@localhost:7474';
