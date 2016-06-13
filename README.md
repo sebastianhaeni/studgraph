@@ -1,5 +1,31 @@
-# studgraph
+# StudGraph
 Web frontend that visualizes course dependencies of our university major
+
+## Management summary
+@TODO stoeffu
+
+## Project management
+
+We used Trello to manage our tasks. Trello supports a Kanban workflow. So we had
+a standard task board with columns. Even though it's a very small project, it was still helpful to see progress of other team members.
+It was also very fast to set up.
+
+## Deployment
+
+The frontend of the app is automatically deployed to heroku. It can be reached at http://studgraph.herokuapp.com.
+When pushing to heroku, the app is checked for lint errors and unit tests are executed.
+The frontend will connect to a locally running Neo4j server.
+
+### Building
+
+The following utilities are used to lint the code
+* eslint
+* jscs
+* stylelint
+
+Unit tests are started by karma.
+
+The final resources are built with Webpack.
 
 ## Project structure
 
@@ -34,8 +60,10 @@ Web frontend that visualizes course dependencies of our university major
 1. Follow steps 1-4 from [Minimal installation]
 2. Execute the following commands:
 
-    $ npm install
-    $ npm start
+  ```
+  $ npm install
+  $ npm start
+  ```
 
 3. Go to http://localhost:3000
 4. Get coding!
