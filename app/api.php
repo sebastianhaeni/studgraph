@@ -2,7 +2,7 @@
 require_once '../vendor/autoload.php';
 
 $grapheneUrl = getenv('GRAPHENEDB_URL');
-//$grapheneUrl = 'http://neo4j:1234@localhost:7474';
+$grapheneUrl = empty($grapheneUrl) ? 'http://neo4j:1234@localhost:7474' : $grapheneUrl;
 
 use GraphAware\Neo4j\Client\ClientBuilder;
 
@@ -10,12 +10,14 @@ $client = ClientBuilder::create()
 ->addConnection('default', $grapheneUrl)
 ->build();
 
-if(!array_key_exists('statement', $_REQUEST)){
+$entityBody = json_decode(file_get_contents('php://input'), true);
+
+if(!array_key_exists('statement', $entityBody)){
     die('specify a statement');
 }
 
-$statement = $_REQUEST['statement'];
-$params = array_key_exists('params', $_REQUEST) ? json_decode($_REQUEST['params'], true) : [];
+$statement = $entityBody['statement'];
+$params = array_key_exists('params', $entityBody) ? $entityBody['params'] : [];
 
 $result = $client->run($statement, $params);
 $nodes = [];
