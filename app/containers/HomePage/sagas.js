@@ -4,15 +4,15 @@
 
 /* eslint-disable no-constant-condition */
 
-import { take, call, put, select, race } from 'redux-saga/effects';
+import {take, call, put, select, race} from 'redux-saga/effects';
 
-import { LOCATION_CHANGE } from 'react-router-redux';
+import {LOCATION_CHANGE} from 'react-router-redux';
 
-import { LOAD_MODULES } from 'containers/App/constants';
-import { modulesLoaded, moduleLoadingError } from 'containers/App/actions';
+import {LOAD_MODULES} from 'containers/App/constants';
+import {modulesLoaded, moduleLoadingError} from 'containers/App/actions';
 
 import api from 'utils/api';
-import { selectName } from 'containers/HomePage/selectors';
+import {selectName} from 'containers/HomePage/selectors';
 
 // Bootstrap sagas
 export default [
@@ -31,10 +31,10 @@ export function* getModuleData() {
 
     const name = yield select(selectName());
 
-    const response = yield(call(api, {
-      statement: 'MATCH (n:Module) WHERE n.name_de =~ {name} OR n.name_fr =~ {name} OR n.uid =~ {name} RETURN n',
-      parameters: { name: `(?i).*${name}.*` },
-    }));
+    const response = yield(call(api,
+      'MATCH (n:Module) WHERE n.name_de =~ {name} OR n.name_fr =~ {name} OR n.uid =~ {name} RETURN n',
+      {name: `(?i).*${name}.*`},
+    ));
 
     if (response.err === undefined || response.err === null) {
       const rows = response.data.results.length > 0 && response.data.results[0].data.length > 0

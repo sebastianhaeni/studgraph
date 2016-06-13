@@ -4,15 +4,12 @@ import request from './request';
 
 export default execute;
 
-export function* execute(statement) {
-  const headers = new Headers();
-  headers.append('Authorization', `Basic realm="Neo4j" ${btoa(`${NEO4J.USERNAME}:${NEO4J.PASSWORD}`)}`);
-  headers.append('Content-Type', 'application/json');
-  return yield call(request, `${NEO4J.URL}/db/data/transaction/commit`, {
-    headers,
+export function* execute(statement, params) {
+  return yield call(request, `${NEO4J.URL}`, {
     method: 'POST',
     body: JSON.stringify({
-      statements: [statement],
+      statement,
+      params,
     }),
   });
 }
