@@ -18,7 +18,10 @@ export class Neo4jGraph extends React.Component {
       nodes: {
         shape: 'box',
       },
-      interaction: { hover: true },
+      interaction: {
+        hover: true,
+        zoomView: false,
+      },
     };
     this.network = new vis.Network(this.canvas, props.graph, options);
     this.network.on('doubleClick', (params) => props.handleDoubleClick(params));
