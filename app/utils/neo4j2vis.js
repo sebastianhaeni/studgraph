@@ -1,4 +1,4 @@
-import { DataSet } from "vis";
+import { DataSet } from 'vis';
 
 function hashCode(str) {
   let hash = 0;

@@ -3,7 +3,7 @@ require_once '../vendor/autoload.php';
 header('Access-Control-Allow-Origin: *');
 
 $grapheneUrl = getenv('GRAPHENEDB_URL');
-$grapheneUrl = empty($grapheneUrl) ? 'http://neo4j:1234@localhost:7474' : $grapheneUrl;
+//$grapheneUrl = empty($grapheneUrl) ? 'http://neo4j:1234@localhost:7474' : $grapheneUrl;
 
 use GraphAware\Neo4j\Client\ClientBuilder;
 
