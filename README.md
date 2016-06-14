@@ -1,6 +1,8 @@
 # StudGraph
 Web frontend that visualizes course dependencies of our university major.
 
+See it live: http://studgraph.herokuapp.com
+
 For project report, refer to `doc/report.pdf`.
 
 ## Project management
@@ -70,5 +72,19 @@ The frontend will connect to a locally running Neo4j server.
 
 ### Prerequisites
 
-* [Neo4j Server](http://neo4j.com/download)
-* [NodeJS](https://nodejs.org)
+* Neo4j
+* PHP
+* NodeJS
+
+Frontend:
+
+    $ npm install
+    $ npm start
+  
+    
+Middleware:
+
+    $ cd app/
+    $ php -S localhost:8000
+  
+  
