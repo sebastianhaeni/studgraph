@@ -52,13 +52,15 @@ The middleware takes requests from the frontend, forwards them to the Neo4j serv
 
 Any Neo4j server > 2.0
 
-> Runs on Graphene
+> Runs on GrapheneDB
 
 ## Deployment
 
-The frontend of the app is automatically deployed to heroku. It can be reached at http://studgraph.herokuapp.com.
-When pushing to heroku, the app is checked for lint errors and unit tests are executed.
-The frontend will connect to a locally running Neo4j server.
+The frontend of the app is automatically deployed to Heroku. It can be reached at http://studgraph.herokuapp.com.
+When pushing to master branch on GitHub, the app is deployed.
+The frontend will connect to a Neo4j server on GrapheneDB.
+
+Both frontend and database run on a free subscription. So they are relatively slow in reaction time.
 
 ## Project structure
 
