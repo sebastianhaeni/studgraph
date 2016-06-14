@@ -11,10 +11,16 @@ It was also very fast to set up.
 
 ## Technology Stack
 
+![System Overview](/doc/system-overview.png?raw=true "System Overview")
+
+
 ### Web Frontend
 
+Languages:
 * JavaScript ES2015
+* CSS
 
+Frameworks:
 * react
 * react-redux
 * redux-saga
