@@ -9,8 +9,11 @@ export class Neo4jGraph extends React.Component {
     this.createNetwork(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.createNetwork(nextProps);
+  mapClickToData(params) {
+    if(params.nodes.length <= 0){
+      return;
+    }
+    return this.props.graph.meta.get(params.nodes[0]).data;
   }
 
   createNetwork(props) {
@@ -24,7 +27,9 @@ export class Neo4jGraph extends React.Component {
       },
     };
     this.network = new vis.Network(this.canvas, props.graph, options);
-    this.network.on('doubleClick', (params) => props.handleDoubleClick(params));
+    if (props.handleDoubleClick) {
+      this.network.on('doubleClick', (params) => props.handleDoubleClick(this.mapClickToData(params)));
+    }
   }
 
   network;

@@ -26,6 +26,7 @@ function invertColor(hexTripletColor) {
 }
 
 export default function (response) {
+  const meta = new DataSet();
   const nodes = new DataSet();
   const edges = new DataSet();
 
@@ -52,6 +53,10 @@ export default function (response) {
         font: {
           color: `#${invertColor(color)}`,
         },
+      });
+      meta.add({
+        id: element.id,
+        data: properties,
       });
     }
 
@@ -81,6 +86,7 @@ export default function (response) {
 
   // create a network
   return {
+    meta,
     nodes,
     edges,
   };

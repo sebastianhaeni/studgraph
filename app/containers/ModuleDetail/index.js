@@ -16,7 +16,9 @@ import {
   selectModule,
   selectGraph,
   selectHierarchicalGraph,
-  selectLoading,
+  selectLoadingData,
+  selectLoadingGraph,
+  selectLoadingHierarchicalGraph,
   selectError,
 } from './selectors';
 import { loadModule } from './actions';
@@ -78,54 +80,68 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
   };
 
   handleDoubleClick = (params) => {
-    if (params.nodes.length <= 0) {
+    if (!params) {
       return;
     }
 
-    const uid = params.nodes[0];
-    this.openRoute(`/module/${uid}`);
+    this.openRoute(`/module/${params.uid}`);
   };
 
   openHomePage = () => {
     this.openRoute('/');
   };
 
+  getStatsContent(){
+    if(this.props.loadingData){
+      return <LoadingIndicator />;
+    }
+
+    Object.keys(this.props.module).forEach((key) => {
+      const prop = this.props.module[key];
+      this.moduleProps.push(
+        <tr key={key}>
+          <td style={this.firstCellStyle}>{ModuleDetail.mapToLabel(key)}</td>
+          <td>{prop}</td>
+        </tr>
+      );
+    });
+
+    return (
+      <table>
+        <tbody>
+        {this.moduleProps}
+        </tbody>
+      </table>
+    );
+  }
+
+  getGraphContent(){
+    if(this.props.loadingGraph){
+      return <LoadingIndicator />;
+    }
+
+    return (<Neo4jGraph graph={this.props.graph} handleDoubleClick={this.handleDoubleClick} />);
+  }
+
+  getHierarchicalGraphContent(){
+    if(this.props.loadingHierarchicalGraph){
+      return <LoadingIndicator />;
+    }
+
+    return (<Neo4jGraph graph={this.props.hierarchicalGraph} />);
+  }
+
   render() {
     this.moduleProps = [];
 
-    let statsContent = null;
-    let graphContent = null;
-    let hierarchicalGraphContent = null;
-
-    if (this.props.loading) {
-      statsContent = (<LoadingIndicator />);
-      graphContent = statsContent;
-      hierarchicalGraphContent = statsContent;
-    } else {
-      Object.keys(this.props.module).forEach((key) => {
-        const prop = this.props.module[key];
-        this.moduleProps.push(
-          <tr key={key}>
-            <td style={this.firstCellStyle}>{ModuleDetail.mapToLabel(key)}</td>
-            <td>{prop}</td>
-          </tr>
-        );
-      });
-      statsContent = (
-        <table>
-          <tbody>
-          {this.moduleProps}
-          </tbody>
-        </table>
-      );
-      graphContent = (<Neo4jGraph graph={this.props.graph} handleDoubleClick={this.handleDoubleClick} />);
-      hierarchicalGraphContent = (<Neo4jGraph graph={this.props.hierarchicalGraph} />);
-    }
+    let statsContent = this.getStatsContent();
+    let graphContent = this.getGraphContent();
+    let hierarchicalGraphContent = this.getHierarchicalGraphContent();
 
     return (
       <div>
         <Button handleRoute={this.openHomePage}>Back</Button>
-        <H1>{this.props.params.id} - {this.props.loading ? '...' : this.props.module.name_de}</H1>
+        <H1>{this.props.params.id} - {this.props.loadingData ? '...' : this.props.module.name_de}</H1>
         <H3>Stats</H3>
         {statsContent}
         <H3>Dependency graph</H3>
@@ -143,7 +159,9 @@ export class ModuleDetail extends React.Component { // eslint-disable-line react
 
 ModuleDetail.propTypes = {
   changeRoute: React.PropTypes.func,
-  loading: React.PropTypes.bool,
+  loadingData: React.PropTypes.bool,
+  loadingGraph: React.PropTypes.bool,
+  loadingHierarchicalGraph: React.PropTypes.bool,
   params: React.PropTypes.shape({
     id: React.PropTypes.string.isRequired,
   }),
@@ -175,7 +193,25 @@ export default connect(createSelector(
   selectModule(),
   selectGraph(),
   selectHierarchicalGraph(),
-  selectLoading(),
+  selectLoadingData(),
+  selectLoadingGraph(),
+  selectLoadingHierarchicalGraph(),
   selectError(),
-  (module, graph, hierarchicalGraph, loading, error) => ({ module, graph, hierarchicalGraph, loading, error })
+  (
+    module, 
+    graph, 
+    hierarchicalGraph, 
+    loadingData, 
+    loadingGraph, 
+    loadingHierarchicalGraph, 
+    error,
+  ) => ({ 
+    module, 
+    graph, 
+    hierarchicalGraph, 
+    loadingData, 
+    loadingGraph, 
+    loadingHierarchicalGraph, 
+    error, 
+  })
 ), mapDispatchToProps)(ModuleDetail);
