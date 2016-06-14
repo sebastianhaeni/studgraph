@@ -1,4 +1,4 @@
-import { DataSet } from 'vis';
+import {DataSet} from 'vis';
 
 function hashCode(str) {
   let hash = 0;
@@ -16,13 +16,11 @@ function intToRGB(i) {
   return '00000'.substring(0, 6 - c.length) + c;
 }
 
-function invertColor(hexTripletColor) {
-  let color = hexTripletColor;
-  color = parseInt(color, 16);          // convert to integer
-  color = 0xFFFFFF ^ color;             // invert three bytes
-  color = color.toString(16);           // convert to hex
-  color = (`000000${color}`).slice(-6); // pad with leading zeros
-  return color;
+function invertColor(color) {
+  if (parseInt(color, 16) > (parseInt(color, 16) / 2)) {
+    return '000000';
+  }
+  return 'ffffff';
 }
 
 export default function (response) {
