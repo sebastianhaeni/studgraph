@@ -23,7 +23,7 @@ export class Neo4jGraph extends React.Component {
       },
       interaction: {
         hover: true,
-        zoomView: props.enableZoom,
+        zoomView: !!props.enableZoom,
       },
     };
     this.network = new vis.Network(this.canvas, props.graph, options);
