@@ -60,23 +60,23 @@ CREATE (d)-[:child]->(d1)
 CREATE (d)-[:child]->(d2)
 
 // Module der Modulgruppe A: Informatik und Mathematik für die Informatik
-CREATE (m001:Module {uid: "BTI7061", name_de: "Grundlagen der Informatik", name_fr: "Bases de l'informatique", points: 6, assessment: "Pb"})
-CREATE (m002:Module {uid: "BTI7051", name_de: "Objektorientierte Programmierung 1", name_fr: "Programmation orientée objet 1", points: 6, assessment: "Pb"})
+CREATE (m001:Module {uid: "BTI7061", name_de: "Grundlagen der Informatik", name_fr: "Bases de l'informatique", points: 6})
+CREATE (m002:Module {uid: "BTI7051", name_de: "Objektorientierte Programmierung 1", name_fr: "Programmation orientée objet 1", points: 6})
 CREATE (m003:Module {uid: "BZG1151", name_de: "Diskrete Mathematik", name_fr: "Mathématiques discrètes", points: 6})
-CREATE (m004:Module {uid: "BZG1152", name_de: "Lineare Algebra", name_fr: "Algèbre linéaire", points: 6, assessment: "Pb"})
-CREATE (m005:Module {uid: "BTI7055", name_de: "Objektorientierte Programmierung 2", name_fr: "Programmation orientée objet 2", points: 6, assessment: "Pb"})
-CREATE (m006:Module {uid: "BZG1153", name_de: "Analysis", name_fr: "Analyse", points: 4, assessment: "Pb"})
-CREATE (m007:Module {uid: "BTI7062", name_de: "Algorithmen und Datenstrukturen", name_fr: "Algorithmes et structures de données", points: 6, assessment: "Pb"})
-CREATE (m008:Module {uid: "BTI7056", name_de: "Datenbanken", name_fr: "Bases de données", points: 4, assessment: "Pb"})
-CREATE (m009:Module {uid: "BTI7081", name_de: "Software Engineering and Design", name_fr: "Software Engineering and Design", points: 8, assessment: "Pb"})
+CREATE (m004:Module {uid: "BZG1152", name_de: "Lineare Algebra", name_fr: "Algèbre linéaire", points: 6})
+CREATE (m005:Module {uid: "BTI7055", name_de: "Objektorientierte Programmierung 2", name_fr: "Programmation orientée objet 2", points: 6})
+CREATE (m006:Module {uid: "BZG1153", name_de: "Analysis", name_fr: "Analyse", points: 4})
+CREATE (m007:Module {uid: "BTI7062", name_de: "Algorithmen und Datenstrukturen", name_fr: "Algorithmes et structures de données", points: 6})
+CREATE (m008:Module {uid: "BTI7056", name_de: "Datenbanken", name_fr: "Bases de données", points: 4})
+CREATE (m009:Module {uid: "BTI7081", name_de: "Software Engineering and Design", name_fr: "Software Engineering and Design", points: 8})
 CREATE (m010:Module {uid: "BTI7054", name_de: "Web Programming", name_fr: "Web Programming", points: 4})
-CREATE (m011:Module {uid: "BTI7071", name_de: "Telematik", name_fr: "Téléinformatique", points: 4, assessment: "Pb"})
-CREATE (m012:Module {uid: "BTI7064", name_de: "Automaten und formale Sprachen", name_fr: "Automates et langages formels", points: 2, assessment: "Pb"})
+CREATE (m011:Module {uid: "BTI7071", name_de: "Telematik", name_fr: "Téléinformatique", points: 4})
+CREATE (m012:Module {uid: "BTI7064", name_de: "Automaten und formale Sprachen", name_fr: "Automates et langages formels", points: 2})
 CREATE (m013:Module {uid: "BTI7082", name_de: "Project Management", name_fr: "Project Management", points: 2})
-CREATE (m014:Module {uid: "BZG1154", name_de: "Wahrscheinlichkeitsrechnung und Statistik", name_fr: "Probabilités et statistiques", points: 4, assessment: "Pb"})
-CREATE (m015:Module {uid: "BTI7063", name_de: "Betriebssysteme", name_fr: "Systèmes d'exploitation", points: 4, assessment: "Pb"})
-CREATE (m016:Module {uid: "BTI7072", name_de: "Network Design and Services", name_fr: "Network Design and Services", points: 4, assessment: "Pb"})
-CREATE (m017:Module {uid: "BTI7065", name_de: "Berechenbarkeit und Komplexität", name_fr: "Calculabilité et complexité", points: 2, assessment: "Pa"})
+CREATE (m014:Module {uid: "BZG1154", name_de: "Wahrscheinlichkeitsrechnung und Statistik", name_fr: "Probabilités et statistiques", points: 4})
+CREATE (m015:Module {uid: "BTI7063", name_de: "Betriebssysteme", name_fr: "Systèmes d'exploitation", points: 4})
+CREATE (m016:Module {uid: "BTI7072", name_de: "Network Design and Services", name_fr: "Network Design and Services", points: 4})
+CREATE (m017:Module {uid: "BTI7065", name_de: "Berechenbarkeit und Komplexität", name_fr: "Calculabilité et complexité", points: 2})
 CREATE (m018:Module {uid: "BTI7083", name_de: "User-Centered Design", name_fr: "User-Centered Design", points: 4})
 
 // type relationships
@@ -140,11 +140,11 @@ CREATE (a)-[:child]->(m017)
 CREATE (a)-[:child]->(m018)
 
 // Module der Modulgruppe B5: Wirtschaft, Recht, Naturwissenschaft
-CREATE (m019:Module {uid: "BTI7021", name_de: "Betriebswirtschaftslehre 1", name_fr: "Economie d'entreprise 1", points: 4, assessment: "Pa"})
-CREATE (m020:Module {uid: "BTI7022", name_de: "Betriebswirtschaftslehre 2", name_fr: "Economie d'entreprise 2", points: 4, assessment: "Pa"})
+CREATE (m019:Module {uid: "BTI7021", name_de: "Betriebswirtschaftslehre 1", name_fr: "Economie d'entreprise 1", points: 4})
+CREATE (m020:Module {uid: "BTI7022", name_de: "Betriebswirtschaftslehre 2", name_fr: "Economie d'entreprise 2", points: 4})
 CREATE (m021:Module {uid: "BZG2251", name_de: "Naturwissenschaft und Technik 1", name_fr: "Sciences naturelles et Technologie 1", points: 4})
 CREATE (m022:Module {uid: "BZG2252", name_de: "Naturwissenschaft und Technik 2", name_fr: "Sciences naturelles et Technologie 2", points: 4})
-CREATE (m023:Module {uid: "BTI7023", name_de: "Recht und Informationsgesellschaft", name_fr: "Droit et société de l'information", points: 2, assessment: "Pa"})
+CREATE (m023:Module {uid: "BTI7023", name_de: "Recht und Informationsgesellschaft", name_fr: "Droit et société de l'information", points: 2})
 
 // Modulgruppe B1: Module für Studierende deutscher Hauptsprache
 CREATE (m024:Module {uid: "BZG3101", name_de: "Kommunikation 1 Deutsch", name_fr: "Kommunikation 1 Deutsch", points: 2})
@@ -293,24 +293,24 @@ CREATE (m050:Module {uid: "BTI7311", name_de: "Informatik Seminar", name_fr: "S�
 CREATE (m051:Module {uid: "BTI7321", name_de: "Bachelor Thesis", name_fr: "Thèse de bachelor", points: 12})
 
 // Modulgruppe C1: Vertiefung Mobile Computing
-CREATE (m052:Module {uid: "BTI7251", name_de: "Mobile Systems and Terminals", name_fr: "Mobile Systems and Terminals", points: 8, assessment: "Pa"})
-CREATE (m053:Module {uid: "BTI7252", name_de: "Development of Mobile Applications", name_fr: "Development of Mobile Applications", points: 8, assessment: "Pa"})
-CREATE (m054:Module {uid: "BTI7253", name_de: "Management of Mobile Applications and Systems", name_fr: "Management of Mobile Applications and Systems", points: 8, assessment: "Pa"})
+CREATE (m052:Module {uid: "BTI7251", name_de: "Mobile Systems and Terminals", name_fr: "Mobile Systems and Terminals", points: 8})
+CREATE (m053:Module {uid: "BTI7252", name_de: "Development of Mobile Applications", name_fr: "Development of Mobile Applications", points: 8})
+CREATE (m054:Module {uid: "BTI7253", name_de: "Management of Mobile Applications and Systems", name_fr: "Management of Mobile Applications and Systems", points: 8})
 
 // Modulgruppe C2: Vertiefung IT-Security
-CREATE (m055:Module {uid: "BTI7261", name_de: "Applied Cryptography", name_fr: "Applied Cryptography", points: 8, assessment: "Pa"})
-CREATE (m056:Module {uid: "BTI7262", name_de: "Secure IT Infrastructures", name_fr: "Secure IT Infrastructures", points: 8, assessment: "Pa"})
-CREATE (m057:Module {uid: "BTI7263", name_de: "Application- and Software-Security", name_fr: "Application- and Software-Security", points: 8, assessment: "Pa"})
+CREATE (m055:Module {uid: "BTI7261", name_de: "Applied Cryptography", name_fr: "Applied Cryptography", points: 8})
+CREATE (m056:Module {uid: "BTI7262", name_de: "Secure IT Infrastructures", name_fr: "Secure IT Infrastructures", points: 8})
+CREATE (m057:Module {uid: "BTI7263", name_de: "Application- and Software-Security", name_fr: "Application- and Software-Security", points: 8})
 
 // Modulgruppe C3: Vertiefung Web and Business Applications
-CREATE (m058:Module {uid: "BTI7271", name_de: "Multi Tier Business Applications", name_fr: "Multi Tier Business Applications", points: 8, assessment: "Pa"})
-CREATE (m059:Module {uid: "BTI7272", name_de: "E-Business and Web", name_fr: "E-Business and Web", points: 8, assessment: "Pa"})
-CREATE (m060:Module {uid: "BTI7273", name_de: "ICT-based General Management", name_fr: "ICT-based General Management", points: 8, assessment: "Pa"})
+CREATE (m058:Module {uid: "BTI7271", name_de: "Multi Tier Business Applications", name_fr: "Multi Tier Business Applications", points: 8})
+CREATE (m059:Module {uid: "BTI7272", name_de: "E-Business and Web", name_fr: "E-Business and Web", points: 8})
+CREATE (m060:Module {uid: "BTI7273", name_de: "ICT-based General Management", name_fr: "ICT-based General Management", points: 8})
 
 // Modulgruppe C4: Vertiefung Computer Perception and Virtual Reality
-CREATE (m061:Module {uid: "BTI7281", name_de: "Computer Perception and Computer Graphics", name_fr: "Computer Perception and Computer Graphics", points: 8, assessment: "Pa"})
-CREATE (m062:Module {uid: "BTI7282", name_de: "Virtual Reality and Artificial Intelligence", name_fr: "Virtual Reality and Artificial Intelligence", points: 8, assessment: "Pa"})
-CREATE (m063:Module {uid: "BTI7283", name_de: "Games and Simulation", name_fr: "Games and Simulation", points: 8, assessment: "Pa"})
+CREATE (m061:Module {uid: "BTI7281", name_de: "Computer Perception and Computer Graphics", name_fr: "Computer Perception and Computer Graphics", points: 8})
+CREATE (m062:Module {uid: "BTI7282", name_de: "Virtual Reality and Artificial Intelligence", name_fr: "Virtual Reality and Artificial Intelligence", points: 8})
+CREATE (m063:Module {uid: "BTI7283", name_de: "Games and Simulation", name_fr: "Games and Simulation", points: 8})
 
 // type relationships
 CREATE (m048)-[:type]->(pm)
