@@ -23,7 +23,7 @@ $params = array_key_exists('params', $entityBody) ? $entityBody['params'] : [];
 $result = $client->run($statement, $params);
 $nodes = [];
 $relations = [];
-//print_r($result->records());
+
 foreach ($result->records() as $node) {
   $nodeRecords = [];
   $relationRecords = [];
