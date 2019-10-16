@@ -88,5 +88,3 @@ Middleware:
 
     $ cd app/
     $ php -S localhost:8000
-  
-  
